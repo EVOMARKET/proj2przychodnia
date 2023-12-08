@@ -15,6 +15,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Form\Type;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\MakerBundle\Doctrine\EntityDetails;
 
 
@@ -38,7 +39,7 @@ class VisitCrudController extends AbstractCrudController
             return $actions
             ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }*/
-    
+    #[IsGranted('ROLE_ADMIN')]
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -57,6 +58,11 @@ class VisitCrudController extends AbstractCrudController
        //->setTemplatePath('admin/field/patient.html.twig'),
       //  ->hideOnIndex(),
         ];
+    }
+public function configureActions(Actions $actions):Actions
+    {
+      return parent::configureActions($actions)
+      ->setPermission(Action::INDEX, 'ROLE_SUPER_ADMIN');
     }
     
 }

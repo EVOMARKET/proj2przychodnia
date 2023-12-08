@@ -57,11 +57,20 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-         yield MenuItem::linkToCrud('Doctor', 'fas fa-list', Doctor::class);
+         yield MenuItem::linkToCrud('Doctor', 'fas fa-list', Doctor::class)
+         ->setPermission('ROLE_ADMIN');
+        // ->setPermission('ROLE_MODERATOR');
+
       //  yield MenuItem::linkToCrud('Doctor', 'file-type-reactts', Doctor::class);
-         yield MenuItem::linkToCrud('Specjalization', 'fas fa-list',Specjalization::class);
-         yield MenuItem::linkToCrud('Pacjenci', 'fas fa-list', Patient::class);
+         yield MenuItem::linkToCrud('Specjalization', 'fas fa-list',Specjalization::class)
+         ->setPermission('ROLE_ADMIN');
+       //  ->setPermission('ROLE_MODERATOR');
+         yield MenuItem::linkToCrud('Pacjenci', 'fas fa-list', Patient::class)
+         ->setPermission('ROLE_ADMIN');
+       //  ->setPermission('ROLE_MODERATOR');
          yield MenuItem::linkToCrud('Wizyty', 'fas fa-list', Visit::class);
+      //   ->setPermission('ROLE_SUPER_ADMIN');
+       // ->setPermission('ROLE_MODERATOR');
          
     }
 
@@ -71,14 +80,14 @@ class DashboardController extends AbstractDashboardController
         ->overrideTemplate('crud/field/association', 'admin/field/association.html.twig');
     }*/
 
-   /* public function configureActions(): Actions
+   public function configureActions(): Actions
     {
         return Actions::new()
             ->addBatchAction(Action::BATCH_DELETE)
             ->add(Crud::PAGE_INDEX, Action::DETAIL)
             ->add(Crud::PAGE_INDEX, Action::EDIT)
             ->add(Crud::PAGE_INDEX, Action::DELETE)
-/*
+
             ->add(Crud::PAGE_DETAIL, Action::EDIT)
             ->add(Crud::PAGE_DETAIL, Action::INDEX)
             ->add(Crud::PAGE_DETAIL, Action::DELETE)
@@ -89,6 +98,7 @@ class DashboardController extends AbstractDashboardController
             ->add(Crud::PAGE_NEW, Action::SAVE_AND_RETURN)
             ->add(Crud::PAGE_NEW, Action::SAVE_AND_ADD_ANOTHER)
         ;
-    }*/
-
+    }
+   
+   
 }
